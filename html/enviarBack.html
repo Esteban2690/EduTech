@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enviar Datos al Backend</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./style.css"></script>
+
+</head>
+<body>
+<div class="container">  
+    <div class="d-flex flex-column justify-content-center align-items-center m-5">
+        <h1>Enviar Datos al Backend</h1>
+        <br>
+        <a href="./plantilla.html">
+            <button>Ir a Inicio</button>
+        </a>
+        <!-- Formulario para enviar datos al backend -->
+        <form id="formulario"><br>
+            <label for="dato">Ingresar Dato que deseas enviar a BD:</label>
+            <input type="text" id="dato" name="dato">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</div>    
+  <script>
+    // Accede al formulario
+    const formulario = document.getElementById('formulario');
+
+    // Agrega un evento al formulario para manejar la solicitud de envío
+    formulario.addEventListener('submit', function(event) {
+      // Evita que se recargue la página al enviar el formulario
+      event.preventDefault();
+
+      // Obtén el valor del campo de entrada
+      const dato = formulario.dato.value;
+
+      // Envía el dato al backend
+      fetch('http://localhost:4007/guardar-dato', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ dato: dato })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Dato guardado en el backend:', data);
+        // Aquí podrías realizar alguna acción adicional con la respuesta del backend
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>

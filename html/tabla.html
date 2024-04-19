@@ -1,0 +1,65 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mostrar ID del Producto</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./style.css"></script>
+  
+</head>
+<body>
+    <div class="container vh-100 d-flex align-items-center justify-content-center mt-5">
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Telefono</th>
+            </tr>
+            </thead>
+            <tbody id="usuarios-body">
+           
+            </tbody>
+        </table>
+    </div>
+      
+
+    <script>
+        // Obtener los usuarios del backend
+        fetch('http://localhost:4007/usuarios')
+          .then(response => response.json())
+          .then(usuarios => {
+            const usuariosBody = document.getElementById('usuarios-body');
+            usuarios.forEach(usuario => {
+              // Crear una fila de la tabla por cada usuario
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <td>${usuario.id_usuario}</td>
+                <td>${usuario.nombre_usuario}</td>
+                <td>${usuario.apellido_usuario}</td>
+                <td>${usuario.tel_usuario}</td>
+              `;
+              usuariosBody.appendChild(row);
+            });
+          })
+          .catch(error => console.error('Error:', error));
+      </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

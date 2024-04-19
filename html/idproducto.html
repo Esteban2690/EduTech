@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mostrar ID del Producto</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./style.css"></script>
+
+</head>
+<body>
+
+  <div class="container d-flex flex-column  align-items-center justify-content-center mt-4">
+    <a href="./plantilla.html"><br><br>
+      <button >Ir a Inicio</button>
+    </a>
+    <h3>Mostrar ID del Producto </h3>
+    <input type="text" id="input-producto-existente" class="input-producto" readonly>
+    
+  </div>
+
+  
+
+  <script>
+    fetch('http://localhost:4007/productos')
+      .then(response => response.json())
+      .then(data => {
+        // Extraer el ID del primer producto de la respuesta
+        const idProducto = data[2].nombre_producto;
+        document.getElementById('input-producto-existente').value = `Nombre: ${idProducto}`;
+      })
+      .catch(error => console.error('Error al obtener el ID del producto:', error));
+  </script>
+</body>
+</html>
